@@ -1,0 +1,68 @@
+{
+  "productList": [
+    {
+      "id": "2",
+      "name": "clothes",
+      "unitPrice": "21",
+      "imageUrl": "assets/images/products/coffeemugs/coffeemug-luv2code-1015.png",
+      "unitsInStock": "45",
+      "categoryId": "50"
+    },
+    {
+      "id": "13",
+      "sku": "",
+      "name": "copies",
+      "description": "",
+      "unitPrice": "21",
+      "imageUrl": "assets/images/products/coffeemugs/coffeemug-luv2code-1018.png",
+      "unitsInStock": "47",
+      "categoryId": "coffee mug"
+    },
+    {
+      "id": "3",
+      "name": "book",
+      "unitPrice": "45",
+      "imageUrl": "assets/images/products/luggagetags/luggagetag-luv2code-1015.png",
+      "unitsInStock": "32",
+      "categoryId": "shoes"
+    },
+    {
+      "id": "10",
+      "name": "ceramic",
+      "unitPrice": "45.67",
+      "imageUrl": "assets/images/products/coffeemugs/coffeemug-luv2code-1016.png",
+      "unitsInStock": "1",
+      "categoryId": "2"
+    },
+    {
+      "id": "45",
+      "name": "bgn",
+      "unitPrice": "08",
+      "imageUrl": "assets/images/products/coffeemugs/coffeemug-luv2code-1016.png",
+      "unitsInStock": "gtrg",
+      "categoryId": "89"
+    }
+  ],
+  "categoryList": [
+    {
+      "id": "34",
+      "categoryName": "Mug"
+    },
+    {
+      "id": "50",
+      "categoryName": "Jug"
+    },
+    {
+      "id": "2",
+      "categoryName": "cup"
+    },
+    {
+      "id": "89",
+      "categoryName": "pen"
+    },
+    {
+      "id": "12",
+      "categoryName": "mouse"
+    }
+  ]
+}

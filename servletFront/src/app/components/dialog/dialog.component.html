@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Add Product</h1>
+<div mat-dialog-content>
+
+ <form [formGroup] = "productForm">
+    <mat-form-field appearance="outline">
+       <mat-label>Product id</mat-label>
+    <input formControlName = "id" matInput placeholder="id"> 
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Product Name</mat-label>
+    <input formControlName = "name" matInput placeholder="name"> 
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Product unitPrice</mat-label>
+    <input formControlName = "unitPrice" matInput placeholder="price"> 
+  </mat-form-field>
+
+   <mat-form-field appearance="outline">
+    <mat-label>Product image</mat-label>
+    <input formControlName = "imageUrl" matInput placeholder="imageUrl"> 
+  </mat-form-field>
+
+   <mat-form-field appearance="outline">
+    <mat-label>Product stocks</mat-label>
+    <input formControlName = "unitsInStock" matInput placeholder="stocks"> 
+  </mat-form-field>
+
+     <mat-form-field appearance="outline">
+    <mat-label>Product Category</mat-label>
+        <mat-select formControlName = "categoryId" placeholder="category" 
+        >
+        <div *ngFor="let category of categories">
+
+          <mat-option value="{{category.id}}">{{category.categoryName}}</mat-option>
+        </div>
+        </mat-select>
+  </mat-form-field>
+ </form>
+
+  <div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color= "warn" mat-dialog-close= >Close </button>
+    <button style="margin-left: 8px;" mat-raised-button color= "primary" (click)="addProduct()">{{actionBtn}} </button>
+
+  </div>
+
+</div>
