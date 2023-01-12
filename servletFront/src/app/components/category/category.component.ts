@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -14,11 +13,7 @@ import { DialogCategoryComponent } from '../dialog-category/dialog-category.comp
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
-  displayedColumns: string[] = [
-    'id',
-    'categoryName',
-    'action',
-  ];
+  displayedColumns: string[] = ['id', 'categoryName', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -77,7 +72,8 @@ export class CategoryComponent implements OnInit {
     this.categoryService.deleteCategory(id).subscribe({
       next: (response) => {
         alert('deleted successfully');
-     
+        console.log('Deleted successfully');
+
         this.getAllCategory();
       },
       error: () => {
