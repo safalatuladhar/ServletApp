@@ -2,9 +2,13 @@ package Service;
 
 import Repository.ProductRepository;
 import com.google.gson.Gson;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Part;
 import model.Product;
+import utils.JavaUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -17,27 +21,20 @@ public class ProductService {
         return productRepository.getAllProducts();
     }
 
-    public Product addProduct(HttpServletRequest request) throws SQLException, ClassNotFoundException, ParseException, IOException {
-        StringBuilder sb = new StringBuilder();
-        String s;
-        while ((s = request.getReader().readLine()) != null) {
-            sb.append(s);
-        }
-        Gson gson = new Gson();
-        Product product = gson.fromJson(sb.toString(), Product.class);
-       // System.out.println(product);
+    public Product addProduct(HttpServletRequest request) throws IOException, ServletException {
+
+        Product product =  new Gson().fromJson(request.getParameter("product"),Product.class);
+        product.setImageUrl(JavaUtils.fileUpload(request));
+
         return productRepository.addProduct(product);
     }
 
-    public Product updateProduct(HttpServletRequest request) throws IOException, SQLException, ClassNotFoundException {
-        StringBuilder sb = new StringBuilder();
-        String s;
-        while ((s = request.getReader().readLine()) != null) {
-            sb.append(s);
-        }
-        Gson gson = new Gson();
-        Product product = gson.fromJson(sb.toString(), Product.class);
-        System.out.println(product);
+
+    public Product updateProduct(HttpServletRequest request) throws IOException, ServletException {
+
+        Product product =  new Gson().fromJson(request.getParameter("product"),Product.class);
+        product.setImageUrl(JavaUtils.fileUpload(request));
+
         return productRepository.updateProduct(product);
     }
 

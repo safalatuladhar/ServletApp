@@ -60,7 +60,7 @@ public class CategoryController extends HttpServlet {
         PrintWriter writer = response.getWriter();
 
         int index = Integer.parseInt(request.getPathInfo().split("/")[1]);
-        writer.print(index + " deleted");
+
 
         try {
               categoryService.deleteCategory(index);

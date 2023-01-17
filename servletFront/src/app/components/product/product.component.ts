@@ -101,4 +101,5 @@ export class ProductComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+ 
 }

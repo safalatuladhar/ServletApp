@@ -7,7 +7,6 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { MaterialModule } from './module/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CategoryComponent } from './components/category/category.component';
 import { DialogCategoryComponent } from './components/dialog-category/dialog-category.component';
 import { HeaderComponent } from './components/header/header.component';
 
@@ -18,7 +17,7 @@ import { HeaderComponent } from './components/header/header.component';
     AppComponent,
     DialogComponent,
     DialogCategoryComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

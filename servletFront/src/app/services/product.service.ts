@@ -9,18 +9,26 @@ export class ProductService {
 
   //admin
 
-  postProduct(data: any) {
-    console.log(data);
-    return this.http.post<any>('http://localhost:8080/Servlet/admin/product', data);
-    
+  postProduct(formData: FormData) {
+    console.log(formData);
+
+    return this.http.post<any>(
+      'http://localhost:8080/Servlet/admin/product',
+      formData
+    );
   }
 
-  putProduct(data: any, id: number) {
-    return this.http.put<any>('http://localhost:8080/Servlet/admin/product/' + id,data);
+  putProduct(formData: FormData, id: number) {
+    return this.http.put<any>(
+      'http://localhost:8080/Servlet/admin/product/' + id,
+      formData
+    );
   }
 
   deleteProduct(id: number) {
-    return this.http.delete<any>('http://localhost:8080/Servlet/admin/product/' + id);
+    return this.http.delete<any>(
+      'http://localhost:8080/Servlet/admin/product/' + id
+    );
   }
 
   // user

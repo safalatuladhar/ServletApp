@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Add Product</h1>
 <div mat-dialog-content>
 
- <form [formGroup] = "productForm">
+ <form [formGroup] = "productForm" enctype="multipart/form-data">
     <mat-form-field appearance="outline">
        <mat-label>Product id</mat-label>
     <input formControlName = "id" matInput placeholder="id"> 
@@ -18,10 +18,14 @@
     <input formControlName = "unitPrice" matInput placeholder="price"> 
   </mat-form-field>
 
-   <mat-form-field appearance="outline">
-    <mat-label>Product image</mat-label>
-    <input formControlName = "imageUrl" matInput placeholder="imageUrl"> 
-  </mat-form-field>
+   
+      <mat-label>Product Image</mat-label>
+      <div>
+        <input type="file" id="imageUrl"  (change)="onSelectFile($event)" accept="image/*">
+         <!-- <label for="imageUrl" class="border p-3 mb-2" type="button">Product Image</label> -->
+
+      </div>
+      <br >
 
    <mat-form-field appearance="outline">
     <mat-label>Product stocks</mat-label>
@@ -29,14 +33,17 @@
   </mat-form-field>
 
      <mat-form-field appearance="outline">
-    <mat-label>Product Category</mat-label>
-        <mat-select formControlName = "categoryId" placeholder="category" 
-        >
-        <div *ngFor="let category of categories">
+    <mat-label >Product Category</mat-label>
+        <mat-select formControlName = "categoryId" [(ngModel)]="selected" placeholder="category">
+          <mat-option value="category123" selected = "selected">
+            category123
+          </mat-option>
+        <div *ngFor="let category of categories" >
 
           <mat-option value="{{category.id}}">{{category.categoryName}}</mat-option>
         </div>
         </mat-select>
+        <div *ngIf="selected=== 'categoryId'"></div>
   </mat-form-field>
  </form>
 
