@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class UserUtilty {
+public class JwtUtilty {
 
     private static final long serialVersionUID = 234234523523L;
 

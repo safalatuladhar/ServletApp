@@ -66,8 +66,6 @@ public class ProductRepository {
             pst.setBoolean(8, active);
             pst.setInt(9, unitsInStock);
             pst.executeUpdate();
-        } catch (ClassNotFoundException e) {
-            System.out.println(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -111,8 +109,6 @@ public class ProductRepository {
             pst.setLong(9, id);
             pst.executeUpdate();
 
-        } catch (ClassNotFoundException e) {
-            System.out.println(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

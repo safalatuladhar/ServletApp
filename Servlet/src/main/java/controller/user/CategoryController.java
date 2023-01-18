@@ -18,28 +18,12 @@ public class CategoryController extends HttpServlet {
     private CategoryService categoryService = new CategoryService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Category> categories = categoryService.getAllCategories();
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Gson gson = new Gson();
-
-        List<Category> categories = null;
-
-        PrintWriter writer = response.getWriter();
-        writer.flush();
-        try {
-            categories = categoryService.getAllCategories();
-            writer.print(gson.toJson(categories));
-            System.out.println(writer);
-            writer.flush();
-            writer.close();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
+        response.getWriter().print(gson.toJson(categories));
     }
 
 }

@@ -26,14 +26,10 @@ public class CategoryController extends HttpServlet {
 
        Category category = null;
         PrintWriter writer = response.getWriter();
-        try {
+
             category = categoryService.addCategory(request);
             writer.print(gson.toJson(category));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -45,14 +41,10 @@ public class CategoryController extends HttpServlet {
 
         PrintWriter writer = response.getWriter();
 
-        try {
+
             category = categoryService.updateCategory(request);
             writer.print(gson.toJson(category));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -61,15 +53,9 @@ public class CategoryController extends HttpServlet {
 
         int index = Integer.parseInt(request.getPathInfo().split("/")[1]);
 
-
-        try {
               categoryService.deleteCategory(index);
             System.out.println("deleted");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
 }

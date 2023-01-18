@@ -14,11 +14,12 @@ public class CategoryService {
     private CategoryRepository categoryRepository = new CategoryRepository() ;
 
 
-    public List<Category> getAllCategories() throws SQLException, ClassNotFoundException {
+    public List<Category> getAllCategories()  {
+
         return categoryRepository.getAllCategories();
     }
 
-    public Category addCategory(HttpServletRequest request) throws SQLException, ClassNotFoundException, IOException {
+    public Category addCategory(HttpServletRequest request) throws  IOException {
         StringBuilder sb = new StringBuilder();
         String s;
         while ((s = request.getReader().readLine()) != null) {
@@ -30,7 +31,7 @@ public class CategoryService {
         return categoryRepository.addCategory(category);
     }
 
-    public Category updateCategory(HttpServletRequest request) throws IOException, SQLException, ClassNotFoundException {
+    public Category updateCategory(HttpServletRequest request) throws IOException {
         StringBuilder sb = new StringBuilder();
         String s;
         while ((s = request.getReader().readLine()) != null) {
@@ -42,7 +43,7 @@ public class CategoryService {
         return categoryRepository.updateCategory(category);
     }
 
-    public void deleteCategory(int id) throws IOException, SQLException, ClassNotFoundException {
+    public void deleteCategory(int id) throws IOException {
 
          categoryRepository.deleteCategory(id);
     }
