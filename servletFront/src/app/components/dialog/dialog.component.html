@@ -34,16 +34,14 @@
 
      <mat-form-field appearance="outline">
     <mat-label >Product Category</mat-label>
-        <mat-select formControlName = "categoryId" [(ngModel)]="selected" placeholder="category">
+        <mat-select formControlName = "categoryId"  placeholder="category">
           <mat-option value="category123" selected = "selected">
             category123
           </mat-option>
-        <div *ngFor="let category of categories" >
 
-          <mat-option value="{{category.id}}">{{category.categoryName}}</mat-option>
-        </div>
+          <mat-option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</mat-option>
         </mat-select>
-        <div *ngIf="selected=== 'categoryId'"></div>
+        
   </mat-form-field>
  </form>
 

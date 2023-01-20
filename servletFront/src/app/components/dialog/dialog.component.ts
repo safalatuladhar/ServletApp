@@ -68,7 +68,7 @@ export class DialogComponent implements OnInit {
       const product = this.productForm.value;
       const formData = new FormData();
       formData.append('product', JSON.stringify(product));
-      formData.append('file', this.productFile);
+      if (this.productFile != null){ formData.append('file', this.productFile)}
 
     if (!this.editData) {
       if (this.productForm.valid) {

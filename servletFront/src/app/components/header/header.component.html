@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
   <button
+    routerLink="/"
     mat-icon-button
     class="example-icon"
     aria-label="Example icon-button with menu icon"
@@ -8,15 +9,34 @@
   </button>
   <span>Shopping Mart</span>
   <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/product">Product</button>
-  <button mat-menu-item routerLink="/category">Category</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/product">Product</button>
+    <button mat-menu-item routerLink="/category">Category</button>
+  </mat-menu>
 
-</mat-menu>
+  <button
+    mat-button
+    color="accent"
+    routerLink="/admin"
+    *ngIf="loginService.roleMatch(['Admin'])"
+  >
+    Admin
+  </button>
+  <button
+    mat-button
+    color="accent"
+    routerLink="/user"
+    *ngIf="loginService.roleMatch(['User'])"
+  >
+    User
+  </button>
 
-  <span class= "spacer"></span>
+  <span class="spacer"></span>
 
-  <button mat-icon-button color= "warn" routerLink="/login"> <mat-icon>login</mat-icon></button>
-
-  
+  <button *ngIf="!isLoggedIn()" mat-icon-button routerLink="/login">
+    <mat-icon>login</mat-icon>
+  </button>
+  <button *ngIf="isLoggedIn()" mat-icon-button color="warn" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
 </mat-toolbar>

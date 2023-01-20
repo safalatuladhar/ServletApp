@@ -1,7 +1,6 @@
 package Repository;
 
 import connection.DatabaseConnection;
-import jakarta.servlet.http.HttpServletRequest;
 import model.User;
 
 import java.sql.Connection;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
-    public static List<String> getRolesByUsername(String username)  {
+    public List<String> getRolesByUsername(String username)  {
         Connection connection = DatabaseConnection.getConnection();
         String query = "select r.role from user_role usr join " +
                 "users u on usr.user_id = u.id join " +
@@ -43,10 +42,10 @@ public class UserRepository {
         return roles;
     }
 
-    public User findByUsername(HttpServletRequest request) throws SQLException, ClassNotFoundException {
+    public User findByUsername(User user) throws SQLException, ClassNotFoundException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = user.getUsername();
+        String password = user.getPassword();
 
         Connection connection = DatabaseConnection.getConnection();
         String query = "SELECT * from users where user_name = ? and password = ?";

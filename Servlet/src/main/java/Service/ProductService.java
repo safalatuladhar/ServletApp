@@ -33,7 +33,11 @@ public class ProductService {
     public Product updateProduct(HttpServletRequest request) throws IOException, ServletException {
 
         Product product =  new Gson().fromJson(request.getParameter("product"),Product.class);
-        product.setImageUrl(JavaUtils.fileUpload(request));
+
+        if (request.getPart("file")!= null) {
+            product.setImageUrl(JavaUtils.fileUpload(request));
+
+        }
 
         return productRepository.updateProduct(product);
     }

@@ -6,9 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MaterialModule } from './module/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DialogCategoryComponent } from './components/dialog-category/dialog-category.component';
 import { HeaderComponent } from './components/header/header.component';
+import { RouterModule } from '@angular/router';
+import { AuthGuard } from './guard/auth.guard';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { LoginService } from './services/login.service';
+import { AuthService } from './services/auth.service';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -26,10 +32,18 @@ import { HeaderComponent } from './components/header/header.component';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
     
   ],
-  providers: [],
+  providers: [AuthGuard, 
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
+  LoginService
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

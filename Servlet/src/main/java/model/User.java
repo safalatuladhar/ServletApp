@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public class User {
     private Long id;
     private String first_name;
@@ -7,6 +9,8 @@ public class User {
 
     private String username;
     private String password;
+
+    private List<String> roles;
 
     public User() {
     }
@@ -24,6 +28,22 @@ public class User {
         this.password = password;
     }
 
+    public User(Long id, String first_name, String last_name, String username, String password, List<String> roles) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
@@ -73,6 +93,7 @@ public class User {
                 ", last_name='" + last_name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + roles + '\'' +
                 '}';
     }
 }
