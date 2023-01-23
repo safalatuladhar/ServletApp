@@ -102,7 +102,6 @@ export class HomeComponent implements OnInit {
           'product' + product.id,
           JSON.stringify(cookieData)
         );
-
         
       }else{
         this.cookieService.set('product' + product.id, JSON.stringify(this.productDetails));

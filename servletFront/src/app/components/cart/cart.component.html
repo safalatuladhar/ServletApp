@@ -12,15 +12,17 @@
               <hr />
               <div class="col-md-2">
                 <img
-                  src="http://localhost:8080/uploads/{{
-                    cartItem.imageUrl
-                  }}"
+                  src="http://localhost:8080/uploads/{{ cartItem.imageUrl }}"
                   style="width: 110px; height: 70px"
                   alt=""
                   class="product-image"
                 />
               </div>
-              <div class="col ms-2">
+              <div class="col-md-5 ms-3">
+                <mat-card-title>
+                  {{ cartItem.name }}
+                </mat-card-title>
+
                 <mat-card-subtitle>
                   {{ cartItem.unitPrice | currency : "Rs. " }}
                 </mat-card-subtitle>
@@ -28,9 +30,21 @@
                   <button mat-button (click)="remove(cartItem)">Remove</button>
                 </mat-card-actions>
               </div>
+              <div class="col-md-2">
+                <input
+                  id="form1"
+                  min="1"
+                  name="quantity"
+                  value="{{ cartItem.quantity }}"
+                  #quant
+                  type="number"
+                  (change)="quantityList(quant.value, cartItem)"
+                  class="form-control form-control-sm"
+                />
+              </div>
             </div>
           </mat-card-content>
-          <div class="row px-3 mb-3 justify-content-space-between">
+          <!-- <div class="row px-3 mb-3 justify-content-space-between">
             <hr />
             <div class="col">
               <button
@@ -42,7 +56,7 @@
                 Place Order
               </button>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="col-md-4" style="border-left: 1px solid lightgrey">
           <mat-card-header>
@@ -54,7 +68,7 @@
               <div class="col">
                 <table width="360px">
                   <tr>
-                    <td width="65%">
+                    <td width="50%">
                       <p *ngFor="let cartItem of cartItems">
                         {{ cartItem.name }} ({{ cartItem.quantity }})
                       </p>
@@ -76,17 +90,16 @@
           <div class="row px-2">
             <hr />
             <div class="col">
-              
               <table>
-                                <tr>
-                                    <td td width="65%">
-                                        <b>Total: </b>
-                                    </td>
-                                    <td width="300px">
-                                        <b>{{totalPrice | currency: 'Rs. '}}</b> 
-                                    </td>
-                                </tr>
-                            </table>
+                <tr>
+                  <td td width="65%">
+                    <b>Total: </b>
+                  </td>
+                  <td width="300px">
+                    <b>{{ totalPrice | currency : "Rs. " }}</b>
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>

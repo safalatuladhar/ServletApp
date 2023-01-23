@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
   totalPrice: number = 0;
   totalQuantity: number = 0;
   cartCount: number;
-  
+
   constructor(
     private readonly cartService: CartService,
     private readonly route: ActivatedRoute,
@@ -43,53 +43,58 @@ export class CartComponent implements OnInit {
       });
   }
 
-  listCartDetails() {
-    //handle cart item
-    this.cartItems = this.cartService.cartItems;
-
-    //subscribe cart totalprice
-    this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
-
-    //subsribe cart totalquantity
-    this.cartService.totalQuantity.subscribe(
-      (data) => (this.totalQuantity = data)
-    );
-
-    //compute totalprice and totalquantity
-    this.cartService.computeCartTotals();
-  }
-
   getCartDetails() {
     // var cookieData = this.cookieService.get("product");
     //this.cartDetails = JSON.parse(cookieData);
 
     var cookieData = this.cookieService.getAll();
-    for(const key of Object.keys(cookieData)){
+    for (const key of Object.keys(cookieData)) {
       this.cartItems.push(JSON.parse(cookieData[key]));
     }
-  //  console.log(Object.keys(cookieData));
-    
+    //  console.log(Object.keys(cookieData));
+
+    this.total();
+
     console.log(this.cartItems);
-    
   }
 
-  incrementQuantity(theCartItem: CartItem) {
-    this.cartService.addToCart(theCartItem);
-  }
+  total() {
+    this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
+    this.cartService.totalQuantity.subscribe(
+      (data) => (this.totalQuantity = data)
+    );
 
-  decrementQuantity(theCartItem: CartItem) {
-    this.cartService.decrementQuantity(theCartItem);
+    this.cartService.computeCartTotals(this.cartItems);
   }
 
   remove(theCartItem: CartItem) {
-    this.cookieService.delete("product" + theCartItem.id);
+    this.cookieService.delete('product' + theCartItem.id);
+    this.cartItems = this.cartItems.filter(
+      (cartItem) => cartItem.id !== theCartItem.id
+    );
+
+    this.total();
   }
 
-  deleteCookie() {
-    this.cookieService.delete('name');
-  }
+  quantityList(quantity, theCartItem: CartItem) {
+    var cookieData = JSON.parse(
+      this.cookieService.get('product' + theCartItem.id)
+    );
+    console.log(cookieData);
 
-  deleteAll() {
-    this.cookieService.deleteAll();
+    cookieData.quantity = parseInt(quantity);
+
+    this.cartItems.forEach((item) => {
+      if (item.id === theCartItem.id) {
+        item.quantity = parseInt(quantity);
+      }
+    });
+
+    this.cookieService.set(
+      'product' + theCartItem.id,
+      JSON.stringify(cookieData)
+    );
+
+    this.total();
   }
 }
