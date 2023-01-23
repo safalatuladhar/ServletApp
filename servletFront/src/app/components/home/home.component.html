@@ -1,1 +1,36 @@
-<p>home works!</p>
+<div class="container-fluid mt-4">
+  <div class="row px-2 mt-3 mb 5 justify-content-center">
+    <h4 class="fw-bold">Products</h4>
+    <hr />
+    <div class="col mb-3" *ngFor="let product of products">
+      <mat-card class="category-card">
+        <!-- <input type="hidden" value="{{product}}" #productdetail> -->
+        <img
+          src="http://localhost:8080/uploads/{{ product.imageUrl }}"
+          width="200"
+          height="200"
+          mat-card-image
+          class="category-image"
+        />
+
+        <mat-card-content class="mt-2">
+            Product: {{product.name}}
+        </mat-card-content>
+
+        <mat-card-content class="mt-2">
+           Price: {{product.unitPrice | currency: 'Rs. '}}
+        </mat-card-content>
+
+        <mat-card-content class="mt-2">
+           Stock: {{product.unitsInStock}}
+        </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-button color="primary" class="cart-button"  (click)="addCookie(product)" >Add to Cart</button>
+            </mat-card-actions>
+          
+
+      </mat-card>
+    </div>
+  </div>
+</div>

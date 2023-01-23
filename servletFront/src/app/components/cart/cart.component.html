@@ -1,0 +1,96 @@
+<div class="container mt-4">
+  <div class="row justify-content-center mb-3">
+    <mat-card class="w-80">
+      <div class="row">
+        <div class="col-md-8">
+          <mat-card-header>
+            <mat-card-title> My Cart ({{ totalQuantity }}) </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content style="height: 360px; overflow-x: hidden">
+            <div class="row mb-2 mt-2" *ngFor="let cartItem of cartItems">
+              <hr />
+              <div class="col-md-2">
+                <img
+                  src="http://localhost:8080/uploads/{{
+                    cartItem.imageUrl
+                  }}"
+                  style="width: 110px; height: 70px"
+                  alt=""
+                  class="product-image"
+                />
+              </div>
+              <div class="col ms-2">
+                <mat-card-subtitle>
+                  {{ cartItem.unitPrice | currency : "Rs. " }}
+                </mat-card-subtitle>
+                <mat-card-actions [align]="'start'">
+                  <button mat-button (click)="remove(cartItem)">Remove</button>
+                </mat-card-actions>
+              </div>
+            </div>
+          </mat-card-content>
+          <div class="row px-3 mb-3 justify-content-space-between">
+            <hr />
+            <div class="col">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="openDialog()"
+                class="order-button"
+              >
+                Place Order
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" style="border-left: 1px solid lightgrey">
+          <mat-card-header>
+            <mat-card-subtitle> Payment Details </mat-card-subtitle>
+          </mat-card-header>
+          <hr />
+          <mat-card-content style="height: 360px; overflow-x: hidden">
+            <div class="row py-2">
+              <div class="col">
+                <table width="360px">
+                  <tr>
+                    <td width="65%">
+                      <p *ngFor="let cartItem of cartItems">
+                        {{ cartItem.name }} ({{ cartItem.quantity }})
+                      </p>
+                    </td>
+                    <td>
+                      <p *ngFor="let cartItem of cartItems">
+                        {{
+                          cartItem.unitPrice * cartItem.quantity
+                            | currency : "Rs. "
+                        }}
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <div class="row px-2">
+            <hr />
+            <div class="col">
+              
+              <table>
+                                <tr>
+                                    <td td width="65%">
+                                        <b>Total: </b>
+                                    </td>
+                                    <td width="300px">
+                                        <b>{{totalPrice | currency: 'Rs. '}}</b> 
+                                    </td>
+                                </tr>
+                            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

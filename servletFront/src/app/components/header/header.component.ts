@@ -10,10 +10,11 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private readonly authService: AuthService, private router: Router, public readonly loginService: LoginService) {}
+  constructor(public readonly authService: AuthService, private router: Router, public readonly loginService: LoginService) {}
   ngOnInit(): void {
     
   }
+
 
   public isLoggedIn(){
     return this.authService.isLoggedIn();

@@ -26,6 +26,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./module/login/login.module').then((m) => m.LoginModule),
   },
+
+  {
+    path: 'cart',
+    loadChildren: () =>
+      import('./module/cart/cart.module').then((m) => m.CartModule),
+  },
+
   {
     path: 'forbidden',
     loadChildren: () =>

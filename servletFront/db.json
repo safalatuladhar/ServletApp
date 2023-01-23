@@ -64,5 +64,33 @@
       "id": "12",
       "categoryName": "mouse"
     }
-  ]
+  ],
+
+  "0" : {
+     "product" : {
+      "id": "45",
+      "name": "bgn",
+      "unitPrice": "08",
+      "imageUrl": "assets/images/products/coffeemugs/coffeemug-luv2code-1016.png",
+      "unitsInStock": "gtrg",
+      "categoryId": "89"
+  },
+      "quantity" : 2
+},
+
+"1" : {
+      "product" : {
+      "id": "45",
+      "name": "bgn",
+      "unitPrice": "08",
+      "imageUrl": "assets/images/products/coffeemugs/coffeemug-luv2code-1016.png",
+      "unitsInStock": "gtrg",
+      "categoryId": "89"
+      
+  },
+      "quantity" : 2
+}
+
+ 
+
 }

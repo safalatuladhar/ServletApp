@@ -1,0 +1,9 @@
+import { Product } from "./product";
+
+
+export interface Cart {
+  id: number;
+  product: Product;
+  quantity: number;
+  unitPrice: number;
+}

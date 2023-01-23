@@ -13,8 +13,9 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoginService } from './services/login.service';
-import { AuthService } from './services/auth.service';
-import { HomeComponent } from './components/home/home.component';
+import { DialogOrderComponent } from './components/dialog-order/dialog-order.component';
+import { CookieService } from 'ngx-cookie-service';
+
 
 
 
@@ -24,6 +25,7 @@ import { HomeComponent } from './components/home/home.component';
     DialogComponent,
     DialogCategoryComponent,
     HeaderComponent,
+    DialogOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,7 @@ import { HomeComponent } from './components/home/home.component';
     useClass: AuthInterceptor,
     multi: true
   },
-  LoginService
+  LoginService, CookieService
 ],
   bootstrap: [AppComponent]
 })

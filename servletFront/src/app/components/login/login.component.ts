@@ -31,14 +31,15 @@ export class LoginComponent implements OnInit {
       (response ) => {
         this.authService.setRoles(response.user.roles);
         this.authService.setToken(response);
+        this.authService.setUsername(response.user.username)
         console.log(response);
         
         
         const role = response.user.roles[0];
         if(role === 'Admin'){
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/product']);
         }else{
-          this.router.navigate(['/user']);
+          this.router.navigate(['/']);
         }
       },
       (error) => {

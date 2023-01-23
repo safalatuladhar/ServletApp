@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Order Details</h1>
+
+<div mat-dialog-content>
+
+    <table class="table border">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let cartItem of cartItems">
+                <td>
+                     {{cartItem.product.name}}  
+                </td>
+                <td>
+                    {{cartItem.product.category.title}}
+                </td>
+                <td>
+                    {{cartItem.quantity}}
+                </td>
+                <td>
+                    {{(cartItem.product?.price * cartItem.quantity ) | currency: 'Rs. ' }}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td> <b>Shipping: </b> </td>
+                <td>Free</td>
+                <td>
+                   <b>Total: </b> {{totalPrice | currency: 'Rs. ' }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary">Order</button>
+</div>

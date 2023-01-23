@@ -18,7 +18,7 @@ public class ProductRepository {
 
         Statement statement = connection.createStatement();
 
-        String query = "SELECT p.id, p.sku, p.name,p.description,p.active, p.unit_price, p.image_url, p.units_in_stock, c.id as category_id, c.category_name as category_name FROM product p INNER JOIN product_category c on p.category_id = c.id";
+        String query = "SELECT p.id, p.sku, p.name,p.description,p.active, p.unit_price, p.image_url, p.units_in_stock, c.id as category_id, c.category_name as category_name FROM product p INNER JOIN product_category c on p.category_id = c.id LIMIT 10";
 //        String query = "SELECT * FROM product";
 
         ResultSet resultSet = statement.executeQuery(query);
