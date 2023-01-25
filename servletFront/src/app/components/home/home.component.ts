@@ -7,6 +7,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CartItem } from 'src/app/interface/cartItem';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
     private readonly categoryService: CategoryService,
     private readonly cartService: CartService,
     private formBuilder: FormBuilder,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,6 @@ export class HomeComponent implements OnInit {
     this.categoryService.getCategory().subscribe({
       next: (response) => {
         this.categories = response;
-        console.log(this.categories);
       },
       error: (err) => {
         alert('error fetching records');
@@ -52,10 +53,10 @@ export class HomeComponent implements OnInit {
   }
 
   getAllProduct() {
+  
     this.productService.getProduct().subscribe({
       next: (response) => {
         this.products = response;
-        console.log(this.products);
       },
       error: (err) => {
         alert('error fetching records');
@@ -63,48 +64,67 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  addToCart(product: Product) {
+  addCookie(product: Product) {
+   const dateNow = new Date();
+   dateNow.setDate(dateNow.getDate() + 2);
+   
     this.productDetails = { ...product, quantity: 1 };
-    if (this.cookieService.check('product')) {
-      var cookieData = this.cookieService.get('product');
-      this.cartItem = JSON.parse(cookieData);
+    if (this.cookieService.check('product' + product.id)) {
+      var cookieData = JSON.parse(
+        this.cookieService.get('product' + product.id)
+      );
+      cookieData.quantity++;
 
-      if (
-        this.cartItem.find((element) => element.id === this.productDetails.id)
-      ) {
-        var newData = this.cartItem.forEach((item) => {
-          if (item.id === this.productDetails.id) {
-            item.quantity++;
-          }
-        });
-      } else {
-        this.cartItem.push(this.productDetails);
-      }
-      console.log(this.cartItem);
-      this.cookieService.set('product', JSON.stringify(this.cartItem));
+      this.cookieService.set(
+        'product' + product.id,
+        JSON.stringify(cookieData),
+        dateNow
+      );
+      const cartItemCopy = [...this.cartService.cartItems];
+      cartItemCopy.forEach((item) => {
+        if (item.id === this.productDetails.id) {
+          item.quantity++;
+        }
+      });
+      this.cartService.cartItems = [...cartItemCopy];
     } else {
-
-      this.cartItem.push(this.productDetails);
-
-      this.cookieService.set('product', JSON.stringify(this.cartItem));
+      this.cookieService.set(
+        'product' + product.id,
+        JSON.stringify(this.productDetails),
+        dateNow
+      );
+      this.cartService.cartItems.push(this.productDetails);
     }
-
-    //console.log(productDetails);
+    this.cartService.updateData();
+    this.snackBar.open('Cart added!', 'Close');
   }
 
-  addCookie(product: Product){
-    this.productDetails = { ...product, quantity: 1 };
-      if(this.cookieService.check('product' + product.id)){
-        var cookieData = JSON.parse(this.cookieService.get('product' + product.id));
-        cookieData.quantity++;
-        console.log(cookieData);
-        this.cookieService.set(
-          'product' + product.id,
-          JSON.stringify(cookieData)
-        );
-        
-      }else{
-        this.cookieService.set('product' + product.id, JSON.stringify(this.productDetails));
-      }
-  }
+  // addToCart(product: Product) {
+  //   this.productDetails = { ...product, quantity: 1 };
+  //   if (this.cookieService.check('product')) {
+  //     var cookieData = this.cookieService.get('product');
+  //     this.cartItem = JSON.parse(cookieData);
+
+  //     if (
+  //       this.cartItem.find((element) => element.id === this.productDetails.id)
+  //     ) {
+  //       this.cartItem.forEach((item) => {
+  //         if (item.id === this.productDetails.id) {
+  //           item.quantity++;
+  //         }
+  //       });
+  //     } else {
+  //       this.cartItem.push(this.productDetails);
+  //     }
+  //     console.log(this.cartItem);
+  //     this.cookieService.set('product', JSON.stringify(this.cartItem));
+  //   } else {
+  //     this.cartItem.push(this.productDetails);
+
+  //     this.cookieService.set('product', JSON.stringify(this.cartItem));
+  //   }
+
+  //   this.snackBar.open('cart added', 'successfully');
+  //   //console.log(productDetails);
+  // }
 }

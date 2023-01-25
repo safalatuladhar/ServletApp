@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -16,7 +18,9 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly loginService: LoginService,
-    private readonly authService: AuthService 
+    private readonly authService: AuthService ,
+    private readonly cookieService: CookieService,
+    private readonly cartService: CartService,
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +37,11 @@ export class LoginComponent implements OnInit {
         this.authService.setToken(response);
         this.authService.setUsername(response.user.username)
         console.log(response);
+        this.cookieService.deleteAll();
+        this.cartService.cartItems = [];
+        this.cartService.updateData();
         
+
         
         const role = response.user.roles[0];
         if(role === 'Admin'){

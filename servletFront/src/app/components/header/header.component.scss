@@ -25,3 +25,7 @@ span.badge {
     top: 5px;
     right: 2px;
 }
+
+.demo-section+ .demo-section {
+    margin-top: 16px;
+}

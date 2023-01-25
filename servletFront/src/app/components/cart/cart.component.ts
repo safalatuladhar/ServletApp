@@ -7,6 +7,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { DialogOrderComponent } from '../dialog-order/dialog-order.component';
 import { CookieService } from 'ngx-cookie-service';
 import { CartItem } from 'src/app/interface/cartItem';
+import { Product } from 'src/app/interface/product';
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +20,8 @@ export class CartComponent implements OnInit {
   totalQuantity: number = 0;
   cartCount: number;
 
+  productDetails: CartItem;
+
   constructor(
     private readonly cartService: CartService,
     private readonly route: ActivatedRoute,
@@ -27,7 +30,8 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCartDetails();
+    // this.getCartDetails();
+    this.total();
   }
 
   openDialog() {
@@ -43,19 +47,8 @@ export class CartComponent implements OnInit {
       });
   }
 
-  getCartDetails() {
-    // var cookieData = this.cookieService.get("product");
-    //this.cartDetails = JSON.parse(cookieData);
-
-    var cookieData = this.cookieService.getAll();
-    for (const key of Object.keys(cookieData)) {
-      this.cartItems.push(JSON.parse(cookieData[key]));
-    }
-    //  console.log(Object.keys(cookieData));
-
-    this.total();
-
-    console.log(this.cartItems);
+  getCartItems(): CartItem[] {
+    return this.cartService.cartItems;
   }
 
   total() {
@@ -64,7 +57,7 @@ export class CartComponent implements OnInit {
       (data) => (this.totalQuantity = data)
     );
 
-    this.cartService.computeCartTotals(this.cartItems);
+    // this.cartService.computeCartTotals(this.cartItems);
   }
 
   remove(theCartItem: CartItem) {
@@ -72,11 +65,15 @@ export class CartComponent implements OnInit {
     this.cartItems = this.cartItems.filter(
       (cartItem) => cartItem.id !== theCartItem.id
     );
+    this.cartService.remove(theCartItem);
 
-    this.total();
+    // this.total();
   }
 
   quantityList(quantity, theCartItem: CartItem) {
+    const dateNow = new Date();
+    dateNow.setDate(dateNow.getDate() + 2);
+
     var cookieData = JSON.parse(
       this.cookieService.get('product' + theCartItem.id)
     );
@@ -84,17 +81,49 @@ export class CartComponent implements OnInit {
 
     cookieData.quantity = parseInt(quantity);
 
-    this.cartItems.forEach((item) => {
+    const cartItemCopy = [...this.cartService.cartItems];
+    this.cartService.cartItems.forEach((item) => {
       if (item.id === theCartItem.id) {
-        item.quantity = parseInt(quantity);
+        item.quantity++;
       }
     });
-
+    this.cartService.cartItems = [...cartItemCopy];
+    this.cartService.updateData();
     this.cookieService.set(
       'product' + theCartItem.id,
-      JSON.stringify(cookieData)
+      JSON.stringify(cookieData),
+      dateNow
     );
 
     this.total();
   }
+
+  // removeSecond(theCartItem: CartItem) {
+  //   var cookieData = this.cookieService.get('product');
+  //   this.cartItems = JSON.parse(cookieData);
+
+  //   this.cartItems = this.cartItems.filter(
+  //     (cartItem) => cartItem.id !== theCartItem.id
+  //   );
+
+  //   this.cookieService.set('product', JSON.stringify(this.cartItems));
+
+  //   this.total();
+
+  //   console.log('remove');
+  // }
+
+  // quantityUpdateSecond(quantity: any, cardId: number) {
+  //   var cookieData = this.cookieService.get('product');
+  //   this.cartItems = JSON.parse(cookieData);
+
+  //   this.cartItems.forEach((item) => {
+  //     if (item.id === cardId) {
+  //       item.quantity = parseInt(quantity);
+  //     }
+  //     this.cookieService.set('product', JSON.stringify(this.cartItems));
+
+  //     this.total();
+  //   });
+  // }
 }

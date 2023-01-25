@@ -4,7 +4,11 @@ import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', redirectTo: "home", pathMatch: 'full'
+  },
+
+  {
+    path: 'home',
     loadChildren: () =>
       import('./module/home/home.module').then((m) => m.HomeModule),
   },
@@ -40,20 +44,7 @@ const routes: Routes = [
         (m) => m.ForbiddenModule
       ),
   },
-  {
-    path: 'admin',
-    loadChildren: () =>
-      import('./module/admin/admin.module').then((m) => m.AdminModule),
-    canActivate: [AuthGuard],
-    data: { roles: ['Admin'] },
-  },
-  {
-    path: 'user',
-    loadChildren: () =>
-      import('./module/user/user.module').then((m) => m.UserModule),
-    canActivate: [AuthGuard],
-    data: { roles: ['User'] },
-  },
+
 ];
 
 @NgModule({

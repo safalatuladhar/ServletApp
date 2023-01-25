@@ -8,7 +8,7 @@
           </mat-card-header>
 
           <mat-card-content style="height: 360px; overflow-x: hidden">
-            <div class="row mb-2 mt-2" *ngFor="let cartItem of cartItems">
+            <div class="row mb-2 mt-2" *ngFor="let cartItem of getCartItems()">
               <hr />
               <div class="col-md-2">
                 <img
@@ -27,11 +27,22 @@
                   {{ cartItem.unitPrice | currency : "Rs. " }}
                 </mat-card-subtitle>
                 <mat-card-actions [align]="'start'">
+                  <!-- <button mat-button (click)="removeSecond(cartItem)">Remove</button> -->
                   <button mat-button (click)="remove(cartItem)">Remove</button>
                 </mat-card-actions>
               </div>
               <div class="col-md-2">
-                <input
+                <!-- <input
+                  id="form1"
+                  min="1"
+                  name="quantity"
+                  value="{{ cartItem.quantity }}"
+                  #quant
+                  type="number"
+                  (change)="quantityUpdateSecond(quant.value, cartItem.id)"
+                  class="form-control form-control-sm"
+                /> -->
+                       <input
                   id="form1"
                   min="1"
                   name="quantity"
@@ -69,12 +80,12 @@
                 <table width="360px">
                   <tr>
                     <td width="50%">
-                      <p *ngFor="let cartItem of cartItems">
+                      <p *ngFor="let cartItem of getCartItems()">
                         {{ cartItem.name }} ({{ cartItem.quantity }})
                       </p>
                     </td>
                     <td>
-                      <p *ngFor="let cartItem of cartItems">
+                      <p *ngFor="let cartItem of getCartItems()">
                         {{
                           cartItem.unitPrice * cartItem.quantity
                             | currency : "Rs. "
