@@ -7,7 +7,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CartItem } from 'src/app/interface/cartItem';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -53,7 +53,6 @@ export class HomeComponent implements OnInit {
   }
 
   getAllProduct() {
-  
     this.productService.getProduct().subscribe({
       next: (response) => {
         this.products = response;
@@ -64,67 +63,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  addCookie(product: Product) {
-   const dateNow = new Date();
-   dateNow.setDate(dateNow.getDate() + 2);
-   
-    this.productDetails = { ...product, quantity: 1 };
-    if (this.cookieService.check('product' + product.id)) {
-      var cookieData = JSON.parse(
-        this.cookieService.get('product' + product.id)
-      );
-      cookieData.quantity++;
-
-      this.cookieService.set(
-        'product' + product.id,
-        JSON.stringify(cookieData),
-        dateNow
-      );
-      const cartItemCopy = [...this.cartService.cartItems];
-      cartItemCopy.forEach((item) => {
-        if (item.id === this.productDetails.id) {
-          item.quantity++;
-        }
-      });
-      this.cartService.cartItems = [...cartItemCopy];
-    } else {
-      this.cookieService.set(
-        'product' + product.id,
-        JSON.stringify(this.productDetails),
-        dateNow
-      );
-      this.cartService.cartItems.push(this.productDetails);
-    }
-    this.cartService.updateData();
-    this.snackBar.open('Cart added!', 'Close');
+  addToCart(product: Product) {
+    this.cartService.addItemToCookie(product);
+    this.snackBar.open('cart added!', 'Close', { duration: 2000 });
   }
 
-  // addToCart(product: Product) {
-  //   this.productDetails = { ...product, quantity: 1 };
-  //   if (this.cookieService.check('product')) {
-  //     var cookieData = this.cookieService.get('product');
-  //     this.cartItem = JSON.parse(cookieData);
-
-  //     if (
-  //       this.cartItem.find((element) => element.id === this.productDetails.id)
-  //     ) {
-  //       this.cartItem.forEach((item) => {
-  //         if (item.id === this.productDetails.id) {
-  //           item.quantity++;
-  //         }
-  //       });
-  //     } else {
-  //       this.cartItem.push(this.productDetails);
-  //     }
-  //     console.log(this.cartItem);
-  //     this.cookieService.set('product', JSON.stringify(this.cartItem));
-  //   } else {
-  //     this.cartItem.push(this.productDetails);
-
-  //     this.cookieService.set('product', JSON.stringify(this.cartItem));
-  //   }
-
-  //   this.snackBar.open('cart added', 'successfully');
-  //   //console.log(productDetails);
-  // }
 }

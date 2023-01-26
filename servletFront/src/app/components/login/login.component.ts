@@ -40,9 +40,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.deleteAll();
         this.cartService.cartItems = [];
         this.cartService.updateData();
-        
-
-        
+              
         const role = response.user.roles[0];
         if(role === 'Admin'){
           this.router.navigate(['/product']);
